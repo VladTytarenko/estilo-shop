@@ -1,11 +1,17 @@
 package com.tytarenko.estiloshop.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.awt.*;
 
+//@Entity
 public class Good {
 
+//    @Id
+//    @GeneratedValue
     @NotNull
     private long goodId;
 
@@ -30,6 +36,9 @@ public class Good {
     private Color color;
 
     private Image image;
+
+    public Good(){
+    }
 
     public Good(@NotNull long goodId, @NotNull @Size(min = 4, max = 25) String name,
                 @NotNull @Size(min = 25, max = 500) String description,

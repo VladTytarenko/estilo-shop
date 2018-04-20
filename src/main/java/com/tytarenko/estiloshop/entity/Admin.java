@@ -2,21 +2,25 @@ package com.tytarenko.estiloshop.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Admin implements UserDetails {
 
-	@NotNull
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private long adminId;
 
 	@NotNull
@@ -24,18 +28,21 @@ public class Admin implements UserDetails {
 	private String name;
 
 	@NotNull
-	@Email
+	//@Email
 	private String email;
 
 	@NotNull
 	@Size(min = 6)
 	private String password;
 
+	public Admin() {
+	}
+
 	public Admin(@NotNull long adminId, @NotNull String name, @NotNull String email, @NotNull String password) {
 		this.adminId = adminId;
 		this.name = name;
 		this.email = email;
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 
 	public long getAdminId() {
@@ -54,9 +61,19 @@ public class Admin implements UserDetails {
 		this.name = name;
 	}
 
+	public void setUsername(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = new BCryptPasswordEncoder().encode(password);
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		List<UserType> ga = new ArrayList<>();
+		ga.add(UserType.ADMIN);
+		return ga;
 	}
 
 	@Override

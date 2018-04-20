@@ -8,12 +8,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerDao customerDao;
+
+    @Override
+    public Customer findById(long id) {
+        return null;//customerDao.save();
+    }
+
+    @Override
+    public List<Customer> findAllCustomers() {
+        return customerDao.findAll();
+    }
 
     @Override
     public void addCustomer(Customer customer) {
@@ -27,6 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return customerDao.findByEmail(userName);
+        return customerDao.findByCustomerEmail(userName);
     }
 }

@@ -3,21 +3,19 @@ package com.tytarenko.estiloshop.entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Customer implements UserDetails {
 
-	@NotNull
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private long customerId;
 
 	@NotNull
@@ -25,40 +23,38 @@ public class Customer implements UserDetails {
 	private String name;
 
 	@NotNull
-	@Size(max = 100)
-	private String addreess;
-
-	@NotNull
 	@Size(max = 25)
 	private String mobilePhone;
 
+	//Email
 	@NotNull
-	@Email
-	private String email;
+	private String customerEmail;
 
-	@NotNull
 	@Size(min = 6)
 	private String password;
 
-	public Customer(String name, String mobilePhone, String address) {
-		this.name = name;
-		this.mobilePhone = mobilePhone;
-		this.addreess = address;
+	public Customer() {
 	}
 
-	public Customer(@NotNull long customerId, @NotNull String name, @NotNull String mobilePhone,
-				 @NotNull String address, @NotNull String email, @NotNull String password) {
-		this.customerId = customerId;
+	public Customer(@NotNull String name, @NotNull String customerEmail, @NotNull String mobilePhone) {
+		this.name = name;
+		this.customerEmail = customerEmail;
+		this.mobilePhone = mobilePhone;
+	}
+
+	public Customer(@NotNull String name, @NotNull String mobilePhone,
+					@NotNull String customerEmail, @NotNull String password) {
 		this.name = name;
 		this.mobilePhone = mobilePhone;
-		this.addreess = address;
-		this.email = email;
+		this.customerEmail = customerEmail;
 		this.password = password;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		List<GrantedAuthority> ga = new ArrayList<>();
+		ga.add(UserType.CUSTOMER);
+		return ga;
 	}
 
 	@Override
@@ -68,7 +64,7 @@ public class Customer implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return customerEmail;
 	}
 
 	@Override
@@ -107,14 +103,6 @@ public class Customer implements UserDetails {
 		this.name = name;
 	}
 
-	public String getAddreess() {
-		return addreess;
-	}
-
-	public void setAddreess(String addreess) {
-		this.addreess = addreess;
-	}
-
 	public String getMobilePhone() {
 		return mobilePhone;
 	}
@@ -123,8 +111,8 @@ public class Customer implements UserDetails {
 		this.mobilePhone = mobilePhone;
 	}
 
-	public void setUsername(String email) {
-		this.email = email;
+	public void setUsername(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 
 	public void setPassword(String password) {

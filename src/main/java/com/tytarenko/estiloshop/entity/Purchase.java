@@ -1,5 +1,8 @@
 package com.tytarenko.estiloshop.entity;
 
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -8,28 +11,45 @@ public class Purchase {
     @NotNull
     private long purchaseId;
 
+    //@OneToMany
     @NotNull
-    private Date date;
+    private Good good;
 
-    @NotNull
-    private Purchase purchaseList;
-
+    //OneToOne
     @NotNull
     private Customer customer;
 
+    //@Column(nullable = true)
+    private String adress;
+
+    @NotNull
+    private Date date;
+
+    public Purchase() {
+    }
+
     public Purchase(@NotNull long purchaseId, @NotNull Date date,
-                    @NotNull Purchase purchaseList, @NotNull Customer customer) {
+                    @NotNull Good good, @NotNull Customer customer) {
         this.purchaseId = purchaseId;
         this.date = date;
-        this.purchaseList = purchaseList;
+        this.good = good;
         this.customer = customer;
     }
 
-    public long getPurchaseIdId() {
+    public Purchase(@NotNull long purchaseId, @NotNull Date date,
+                    @NotNull Good good, @NotNull Customer customer, String adress) {
+        this.purchaseId = purchaseId;
+        this.date = date;
+        this.good = good;
+        this.customer = customer;
+        this.adress = adress;
+    }
+
+    public long getPurchaseId() {
         return purchaseId;
     }
 
-    public void setId(long purchaseId) {
+    public void setPurchaseId(long purchaseId) {
         this.purchaseId = purchaseId;
     }
 
@@ -41,12 +61,12 @@ public class Purchase {
         this.date = date;
     }
 
-    public Purchase getPurchaseList() {
-        return purchaseList;
+    public Good getGood() {
+        return good;
     }
 
-    public void setPurchaseList(Purchase purchaseList) {
-        this.purchaseList = purchaseList;
+    public void setGood(Good good) {
+        this.good = good;
     }
 
     public Customer getCustomer() {
@@ -55,5 +75,13 @@ public class Purchase {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 }
