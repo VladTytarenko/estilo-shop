@@ -1,48 +1,57 @@
 package com.tytarenko.estiloshop.entity;
 
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
+@Entity
 public class Purchase {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private long purchaseId;
 
-    //@OneToMany
+    @ManyToMany()
+    @JoinTable(name = "good",
+    joinColumns = @JoinColumn(name = "purchase_Id"),
+    inverseJoinColumns = @JoinColumn(name = "goodId"))
     @NotNull
-    private Good good;
+    private List<Good> goods;
 
-    //OneToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
     @NotNull
     private Customer customer;
 
-    //@Column(nullable = true)
-    private String adress;
+    @Column(nullable = true)
+    private String address;
 
     @NotNull
     private Date date;
 
+    private boolean isBuyed;
+
     public Purchase() {
     }
 
-    public Purchase(@NotNull long purchaseId, @NotNull Date date,
-                    @NotNull Good good, @NotNull Customer customer) {
-        this.purchaseId = purchaseId;
+    public Purchase(@NotNull Date date,
+                    @NotNull List<Good> goods, @NotNull Customer customer, boolean isBuyed) {
         this.date = date;
-        this.good = good;
+        this.goods = goods;
         this.customer = customer;
+        this.isBuyed = isBuyed;
     }
 
-    public Purchase(@NotNull long purchaseId, @NotNull Date date,
-                    @NotNull Good good, @NotNull Customer customer, String adress) {
-        this.purchaseId = purchaseId;
+    public Purchase(@NotNull Date date,
+                    @NotNull List<Good> goods, @NotNull Customer customer, String address,
+                    boolean isBuyed) {
         this.date = date;
-        this.good = good;
+        this.goods = goods;
         this.customer = customer;
-        this.adress = adress;
+        this.address = address;
+        this.isBuyed = isBuyed;
     }
 
     public long getPurchaseId() {
@@ -61,12 +70,12 @@ public class Purchase {
         this.date = date;
     }
 
-    public Good getGood() {
-        return good;
+    public List<Good> getGoods() {
+        return goods;
     }
 
-    public void setGood(Good good) {
-        this.good = good;
+    public void setGoods(List<Good> goods) {
+        this.goods = goods;
     }
 
     public Customer getCustomer() {
@@ -77,11 +86,19 @@ public class Purchase {
         this.customer = customer;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public boolean isBuyed() {
+        return isBuyed;
+    }
+
+    public void setBuyed(boolean buyed) {
+        isBuyed = buyed;
     }
 }

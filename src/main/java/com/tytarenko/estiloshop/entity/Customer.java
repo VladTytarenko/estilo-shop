@@ -33,10 +33,14 @@ public class Customer implements UserDetails {
 	@Size(min = 6)
 	private String password;
 
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	private List<Purchase> purchaseList;
+
 	public Customer() {
 	}
 
-	public Customer(@NotNull String name, @NotNull String customerEmail, @NotNull String mobilePhone) {
+	public Customer(@NotNull String name, @NotNull String customerEmail,
+					@NotNull String mobilePhone) {
 		this.name = name;
 		this.customerEmail = customerEmail;
 		this.mobilePhone = mobilePhone;
@@ -117,5 +121,33 @@ public class Customer implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
+	}
+
+	public List<Purchase> getPurchaseList() {
+		return purchaseList;
+	}
+
+	public void setPurchaseList(List<Purchase> purchaseList) {
+		this.purchaseList = purchaseList;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer{" +
+				"customerId=" + customerId +
+				", name='" + name + '\'' +
+				", mobilePhone='" + mobilePhone + '\'' +
+				", customerEmail='" + customerEmail + '\'' +
+				", password='" + password + '\'' +
+				", purchaseList=" + purchaseList +
+				'}';
 	}
 }

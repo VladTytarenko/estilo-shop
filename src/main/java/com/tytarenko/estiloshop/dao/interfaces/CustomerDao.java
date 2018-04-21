@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface CustomerDao extends JpaRepository<Customer, Integer> {
 
     Customer findByCustomerEmail(String email);
+    
 
 }

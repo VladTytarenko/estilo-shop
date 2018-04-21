@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-    ok
+
+    <form action="/save" method="POST">
+        <button type="submit">OK</button>
+    </form>
+
 </body>
 </html>

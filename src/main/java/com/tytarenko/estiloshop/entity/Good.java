@@ -1,17 +1,16 @@
 package com.tytarenko.estiloshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.awt.*;
+import java.util.List;
 
-//@Entity
+
+@Entity
 public class Good {
 
-//    @Id
-//    @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private long goodId;
 
@@ -32,38 +31,35 @@ public class Good {
     @NotNull
     private String composition;
 
-    @NotNull
-    private Color color;
+    @Lob
+    private byte[] image;
 
-    private Image image;
+    @ManyToMany(mappedBy = "goods")
+    private List<Purchase> purchaseList;
 
     public Good(){
     }
 
-    public Good(@NotNull long goodId, @NotNull @Size(min = 4, max = 25) String name,
+    public Good(@NotNull @Size(min = 4, max = 25) String name,
                 @NotNull @Size(min = 25, max = 500) String description,
                 @NotNull long price, @NotNull SizeEnum size,
-                @NotNull String composition, @NotNull Color color) {
-        this.goodId = goodId;
+                @NotNull String composition) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.size = size;
         this.composition = composition;
-        this.color = color;
     }
 
-    public Good(@NotNull long goodId, @NotNull @Size(min = 4, max = 25) String name,
+    public Good(@NotNull @Size(min = 4, max = 25) String name,
                 @NotNull @Size(min = 25, max = 500) String description,
                 @NotNull long price, @NotNull SizeEnum size,
-                @NotNull String composition, @NotNull Color color, Image image) {
-        this.goodId = goodId;
+                @NotNull String composition, byte[] image) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.size = size;
         this.composition = composition;
-        this.color = color;
         this.image = image;
     }
 
@@ -115,20 +111,20 @@ public class Good {
         this.composition = composition;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Image getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public List<Purchase> getPurchaseList() {
+        return purchaseList;
+    }
+
+    public void setPurchaseList(List<Purchase> purchaseList) {
+        this.purchaseList = purchaseList;
     }
 
     @Override
@@ -140,7 +136,6 @@ public class Good {
                 ", price=" + price +
                 ", size=" + size +
                 ", composition='" + composition + '\'' +
-                ", color='" + color + '\'' +
                 '}';
     }
 }
