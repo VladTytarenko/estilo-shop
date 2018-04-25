@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.awt.*;
 
+//simple change
 //@Entity
 public class Good {
 
