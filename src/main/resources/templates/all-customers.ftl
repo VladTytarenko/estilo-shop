@@ -5,10 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+---------------------
     <#list customer as test>
         ${test.name}
         ${test.username}
     </#list>
+------------------------
+
 
 </body>
 </html>

@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface CustomerService extends UserDetailsService {
 
-    Customer findById(long id);
+    Customer findById(Long id);
     List<Customer> findAllCustomers();
+    Customer findByCustomerEmail(String email);
     void addCustomer(Customer customer);
     void updateCustomer(Customer customer);
 

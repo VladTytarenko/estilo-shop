@@ -9,7 +9,9 @@ public interface PurchaseService {
 
     void addPurchase(Purchase purchase);
     void updatePurchase(Purchase purchase);
-    void deletePurchase(long id);
-    List<Purchase> getPurchaseByCustomer(long customerId);
+    void deletePurchase(Long id);
+    List<Purchase> getAllPurchase();
+    List<Purchase> getPurchaseByCustomer(Long customerId);
+    List<Purchase> getNotBuyedPurchaseByCustomer(Long customerId);
     List<Purchase> getPurchaseByDate(Date from, Date to);
 }

@@ -9,5 +9,6 @@ public interface AdminService extends UserDetailsService {
     void addAdmin(Admin admin);
     void updateAdmin(Admin admin);
     Admin getAdminByLogin(String login);
+    Admin getAdminById(long id);
 
 }

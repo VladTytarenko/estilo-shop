@@ -18,8 +18,13 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDao customerDao;
 
     @Override
-    public Customer findById(long id) {
-        return null;//customerDao.save();
+    public Customer findById(Long id) {
+        return customerDao.findByCustomerId(id);
+    }
+
+    @Override
+    public Customer findByCustomerEmail(String email) {
+        return customerDao.findByCustomerEmail(email);
     }
 
     @Override
@@ -29,12 +34,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void addCustomer(Customer customer) {
-        customerDao.save(customer);
+        customerDao.saveAndFlush(customer);
     }
 
     @Override
     public void updateCustomer(Customer customer) {
-
+        customerDao.saveAndFlush(customer);
     }
 
     @Override

@@ -4,14 +4,19 @@ import com.tytarenko.estiloshop.entity.Good;
 import com.tytarenko.estiloshop.entity.SizeEnum;
 
 import java.awt.*;
+import java.util.Currency;
 import java.util.List;
 
 public interface GoodService {
 
     void addGood(Good good);
     void updateGood(Good good);
-    void deleteGood(long id);
-    List<Good> getGoodsByPrice(long from, long to);
-    List<Good> getGoodsBySize(List<SizeEnum> sizeList);
-    List<Good> getGoodsByColor(List<Color> colorList);
+    void deleteGood(Long id);
+    void addToPurchase(long goodId, long purchaseId);
+    Good getGoodById(long id);
+    List<Good> getByFilterAsc(SizeEnum sizeEnum, long min, long max);
+    List<Good> getByFilterDesc(SizeEnum sizeEnum, long min, long max);
+    long getMinPrice();
+    long getMaxPrice();
+
 }

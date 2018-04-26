@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-ok
+
+    <img src="/image/im?id=${good.goodId}"/>
 
 </body>
 </html>

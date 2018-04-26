@@ -5,20 +5,14 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
 public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private long purchaseId;
-
-    @ManyToMany()
-    @JoinTable(name = "good",
-    joinColumns = @JoinColumn(name = "purchase_Id"),
-    inverseJoinColumns = @JoinColumn(name = "goodId"))
-    @NotNull
-    private List<Good> goods;
+    private Long purchaseId;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
@@ -31,34 +25,37 @@ public class Purchase {
     @NotNull
     private Date date;
 
-    private boolean isBuyed;
+    private Boolean isBuyed;
+
+    @ManyToMany(mappedBy = "good")
+    private List<Good> purchase;
 
     public Purchase() {
     }
 
     public Purchase(@NotNull Date date,
-                    @NotNull List<Good> goods, @NotNull Customer customer, boolean isBuyed) {
+                    /*@NotNull List<Good> goods,*/ @NotNull Customer customer, Boolean isBuyed) {
         this.date = date;
-        this.goods = goods;
+        //this.goods = goods;
         this.customer = customer;
         this.isBuyed = isBuyed;
     }
 
     public Purchase(@NotNull Date date,
-                    @NotNull List<Good> goods, @NotNull Customer customer, String address,
+                    /*@NotNull List<Good> goods,*/ @NotNull Customer customer, String address,
                     boolean isBuyed) {
         this.date = date;
-        this.goods = goods;
+        //this.goods = goods;
         this.customer = customer;
         this.address = address;
         this.isBuyed = isBuyed;
     }
 
-    public long getPurchaseId() {
+    public Long getPurchaseId() {
         return purchaseId;
     }
 
-    public void setPurchaseId(long purchaseId) {
+    public void setPurchaseId(Long purchaseId) {
         this.purchaseId = purchaseId;
     }
 
@@ -68,14 +65,6 @@ public class Purchase {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public List<Good> getGoods() {
-        return goods;
-    }
-
-    public void setGoods(List<Good> goods) {
-        this.goods = goods;
     }
 
     public Customer getCustomer() {
@@ -98,7 +87,27 @@ public class Purchase {
         return isBuyed;
     }
 
-    public void setBuyed(boolean buyed) {
+    public void setBuyed(Boolean buyed) {
         isBuyed = buyed;
+    }
+
+    public List<Good> getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(List<Good> purchase) {
+        this.purchase = purchase;
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "purchaseId=" + purchaseId +
+                //", customer=" + customer +
+                ", address='" + address + '\'' +
+                ", date=" + date +
+                ", isBuyed=" + isBuyed +
+                //", purchase=" + purchase +
+                '}';
     }
 }

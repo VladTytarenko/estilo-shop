@@ -54,6 +54,16 @@ public class Customer implements UserDetails {
 		this.password = password;
 	}
 
+	public Customer(@NotNull long customerId, @NotNull String name,
+					@NotNull String mobilePhone, @NotNull String customerEmail,
+					@NotNull String password) {
+		this.customerId = customerId;
+		this.name = name;
+		this.mobilePhone = mobilePhone;
+		this.customerEmail = customerEmail;
+		this.password = password;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> ga = new ArrayList<>();

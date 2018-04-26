@@ -6,9 +6,7 @@
 </head>
 <body>
 
-    <form action="/save" method="POST">
-        <button type="submit">OK</button>
-    </form>
+ok!!!
 
 </body>
 </html>
