@@ -83,11 +83,11 @@ public class Purchase {
         this.address = address;
     }
 
-    public boolean isBuyed() {
+    public boolean getIsBuyed() {
         return isBuyed;
     }
 
-    public void setBuyed(Boolean buyed) {
+    public void setIsBuyed(Boolean buyed) {
         isBuyed = buyed;
     }
 

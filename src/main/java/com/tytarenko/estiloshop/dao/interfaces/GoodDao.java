@@ -16,6 +16,8 @@ public interface GoodDao extends JpaRepository<Good, Long> {
 
     //List<Good> findGoodsByPriceBetweenAndDe
 
+    List<Good> findAll();
+
     Good findGoodByGoodId(Long id);
 
     @Query("SELECT g FROM Good g WHERE g.size = :size AND g.price BETWEEN :min AND :max ORDER BY g.price ASC")

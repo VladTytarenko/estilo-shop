@@ -29,7 +29,6 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public void deleteGood(Long id) {
         goodDao.deleteById(id);
-
     }
 
     @Override
@@ -40,6 +39,11 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public Good getGoodById(long id) {
         return goodDao.findGoodByGoodId(id);
+    }
+
+    @Override
+    public List<Good> getAll() {
+        return goodDao.findAll();
     }
 
     @Override

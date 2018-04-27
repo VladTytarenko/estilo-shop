@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
@@ -38,6 +37,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public List<Purchase> getAllPurchase() {
         return purchaseDao.findPurchasesByIsBuyedIsTrue();
+    }
+
+    @Override
+    public void setBuyedPurchaseById(long id) {
+        purchaseDao.setBuyedPurchaseById(id);
     }
 
     @Override

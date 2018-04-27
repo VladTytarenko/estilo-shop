@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/image")
-public class TestController {
+public class ImageController {
 
     @Autowired
     private GoodService goodService;

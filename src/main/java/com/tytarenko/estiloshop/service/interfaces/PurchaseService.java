@@ -11,6 +11,7 @@ public interface PurchaseService {
     void updatePurchase(Purchase purchase);
     void deletePurchase(Long id);
     List<Purchase> getAllPurchase();
+    void setBuyedPurchaseById(long id);
     List<Purchase> getPurchaseByCustomer(Long customerId);
     List<Purchase> getNotBuyedPurchaseByCustomer(Long customerId);
     List<Purchase> getPurchaseByDate(Date from, Date to);
