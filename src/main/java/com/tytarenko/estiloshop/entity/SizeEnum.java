@@ -1,6 +1,7 @@
 package com.tytarenko.estiloshop.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public enum SizeEnum {
@@ -17,8 +18,11 @@ public enum SizeEnum {
     private long id;
     private String size;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private Good good;
+    @ManyToMany
+    @JoinTable(name = "size_join_table",
+            joinColumns = @JoinColumn(name = "size_id"),
+            inverseJoinColumns = @JoinColumn(name = "good_id"))
+    private List<Good> good;
 
     SizeEnum(String size) {
         this.size = size;
@@ -40,11 +44,11 @@ public enum SizeEnum {
         this.size = size;
     }
 
-    public Good getGood() {
+    public List<Good> getGood() {
         return good;
     }
 
-    public void setGood(Good good) {
+    public void setGood(List<Good> good) {
         this.good = good;
     }
 }

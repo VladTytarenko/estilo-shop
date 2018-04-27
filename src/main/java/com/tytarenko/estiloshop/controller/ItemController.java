@@ -1,8 +1,5 @@
 package com.tytarenko.estiloshop.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import com.tytarenko.estiloshop.service.interfaces.GoodService;
@@ -26,12 +23,12 @@ public class ItemController {
 	private Cart cart;
 
 	@Autowired
-	private GoodService  goodService;
+	private GoodService goodService;
 	
 	@RequestMapping(value = { "/", "/items" }, method = RequestMethod.GET)
 	public ModelAndView collection() {
 		ModelAndView mv = new ModelAndView("items");
-		List<Good> items = findAll();
+		List<Good> items = goodService.getAll();
 		mv.addObject("items", items);
 		mv.addObject("cartSize", cart.size());
 		return mv;
@@ -40,7 +37,7 @@ public class ItemController {
 	@RequestMapping(value = "/items/{itemId}", method = RequestMethod.GET)
 	public ModelAndView item(@PathVariable("itemId") long itemId) {
 		ModelAndView mv = new ModelAndView("item");
-		Good item = findById(itemId);
+		Good item = goodService.getGoodById(itemId);//findById(itemId);
 		mv.addObject("item", item);
 		CartItem cartItem = new CartItem();
 		mv.addObject("cartItem", cartItem);
@@ -48,33 +45,33 @@ public class ItemController {
 		return mv;
 	}
 	
-	public static List<Good> findAll() {
-		List<SizeEnum> sizeEnums = new ArrayList<>();
-		sizeEnums.add(SizeEnum.S);
-		sizeEnums.add(SizeEnum.XL);
-		sizeEnums.add(SizeEnum.XXXL);
-		List<ColorEnum> colors = new ArrayList<>();
-		colors.add(ColorEnum.DARKORANGE);
-		colors.add(ColorEnum.DARKTURQUOISE);
-		colors.add(ColorEnum.BLACK);
-		Good[] all = new Good[]
-		{
-			new Good(1,"One goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
-			new Good(2,"Two goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
-			new Good(3, "Third goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
-			new Good(4,"Four goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
-			new Good(5,"Five goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors)
-		};
-		return Arrays.asList(all);
-	}
-	
-	public static Good findById(long id) {
-		for (Good item : findAll()) {
-			if(item.getGoodId() == id)
-				return item;
-		}
-		return null;
-	}
+//	public static List<Good> findAll() {
+//		List<SizeEnum> sizeEnums = new ArrayList<>();
+//		sizeEnums.add(SizeEnum.S);
+//		sizeEnums.add(SizeEnum.XL);
+//		sizeEnums.add(SizeEnum.XXXL);
+//		List<ColorEnum> colors = new ArrayList<>();
+//		colors.add(ColorEnum.DARKORANGE);
+//		colors.add(ColorEnum.DARKTURQUOISE);
+//		colors.add(ColorEnum.BLACK);
+//		Good[] all = new Good[]
+//		{
+//			new Good(1,"One goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
+//			new Good(2,"Two goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
+//			new Good(3, "Third goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
+//			new Good(4,"Four goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors),
+//			new Good(5,"Five goods name", "This is one goods description from server.", 100, sizeEnums, "composition stuff", colors)
+//		};
+//		return Arrays.asList(all);
+//	}
+//
+//	public static Good findById(long id) {
+//		for (Good item : findAll()) {
+//			if(item.getGoodId() == id)
+//				return item;
+//		}
+//		return null;
+//	}
 
 	public Cart getCart() {
 		return cart;

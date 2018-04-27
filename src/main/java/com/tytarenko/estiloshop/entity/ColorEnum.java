@@ -1,6 +1,7 @@
 package com.tytarenko.estiloshop.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public enum ColorEnum {
@@ -12,12 +13,16 @@ public enum ColorEnum {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
     private int r;
     private int g;
     private int b;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private Good good;
+    @ManyToMany
+    @JoinTable(name = "color_join_table",
+            joinColumns = @JoinColumn(name = "color_id"),
+            inverseJoinColumns = @JoinColumn(name = "good_id"))
+    private List<Good> good;
 
     ColorEnum() {
     }

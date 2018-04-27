@@ -2,6 +2,7 @@ package com.tytarenko.estiloshop.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -51,7 +52,7 @@ public class Customer implements UserDetails {
 		this.name = name;
 		this.mobilePhone = mobilePhone;
 		this.customerEmail = customerEmail;
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 
 	public Customer(@NotNull long customerId, @NotNull String name,

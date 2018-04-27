@@ -26,7 +26,7 @@ public class Good {
     @NotNull
     private long price;
 
-    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "good")
     @NotNull
     private Collection<SizeEnum> sizeEnums;
 
@@ -36,7 +36,7 @@ public class Good {
     @Lob
     private byte[] image;
 
-    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "good")
     private List<ColorEnum> colors;
 
     @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
