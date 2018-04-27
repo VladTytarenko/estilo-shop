@@ -1,0 +1,106 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC" rel="stylesheet">
+    <title>Order</title>
+  </head>
+  <body>
+    <div class='fluid-container pt-5 pl-5 pr-5'>
+      <div id='main' class='row'>
+        <div class='col-sm-12'>
+          <div class='row d-flex justify-content-center'>
+            <h2 class='text-center order'>Order</h2>
+          </div>
+          <div class='row d-flex justify-content-center'>
+            <h1 class='text-center order pt-0 mt-0'>Customer Information</h1>
+          </div>
+          <div class='col-sm-10 offset-sm-1'>
+          <form class='order' th:action="@{/order/confirm}" th:object="${order}" method="POST">
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                 <input type="text" class="form-control" th:field="*{first}" placeholder="FIRST NAME">
+              </div>
+              <div class="form-group col-sm-4">
+                 <input type="text" class="form-control" th:field="*{second}" placeholder="SECOND NAME">
+              </div>
+              <div class="form-group col-sm-4">
+                 <input type="text" class="form-control" th:field="*{last}" placeholder="LAST NAME">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                 <input type="email" class="form-control" th:field="*{email}" placeholder="ALLBEST@STUFF.NOW">
+              </div>
+              <div class="form-group input-group col-sm-6">
+                <div class="input-group-prepend">
+                  <button id='phoneBut' class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+380</button>
+                  <div id='phoneMenu' class="dropdown-menu">
+                    <label class="dropdown-item" href="#">+380</label>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <label class="dropdown-item" href="#">+7</label>
+                  </div>
+                </div>
+                <input type="tel" class="form-control" th:field="*{phone}" placeholder="PHONE">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                 <input type="text" class="form-control" th:field="*{country}" placeholder="COUNTRY">
+              </div>
+              <div class="form-group col-sm-4">
+                 <input type="text" class="form-control" th:field="*{city}" placeholder="CITY">
+              </div>
+              <div class="form-group col-sm-4">
+                 <input type="text" class="form-control" th:field="*{zip}" placeholder="ZIP">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                 <input type="text" class="form-control" th:field="*{address}" placeholder="ADDRESS">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm"></div>
+              <div class="form-group col-sm-5">
+                <button type="submit" class="btn btn-block btn-secondary">CONFIRM</button>
+              </div>
+              <div class="form-group col-sm"></div>
+            </div>
+          </form>
+          <div class='row'>
+            <div class="form-group col-sm"></div>
+            <div class='col-sm-2'>
+              <form action="#" th:action="@{/cart}" method="GET">
+                <button type="submit" class="btn btn-block btn-light btn-back">Back</button>
+              </form>
+            </div>
+            <div class="form-group col-sm"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script>
+    $('#phoneMenu label').click(function() {
+      var pre = $(this).text();
+      $('#phoneBut').val(pre);
+      $('#phoneBut').text(pre);
+    });
+    </script>
+ </body>
+</html>

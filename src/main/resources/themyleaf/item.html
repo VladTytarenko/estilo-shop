@@ -1,0 +1,146 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC" rel="stylesheet">
+    <title>Item</title>
+  </head>
+  <body>
+    <div class='fluid-container pt-5 pl-5 pr-5'>
+        <div class="d-flex justify-content-between pb-4">
+            <a class="col-sm-2 btn btn-outline-secondary" th:href="@{/items}">MAIN</a>
+            <a class="col-sm-2 btn btn-outline-secondary" th:href="@{/cart}">CART (<span th:text="${cartSize}">0</span>)</a>
+        </div>
+      <div id='main' class='row'>
+        <div class='col-sm-6'>
+          <img src="/images/522x500.png" class="img-fluid mx-auto d-block" alt="Item preview">
+        </div>
+        <div class='col-sm-6'>
+          <h6 class="card-subtitle pt-2 pl-2 text-muted">AVAILABLE NOW</h6>
+          <h1 class="card-title mb-0 pt-4" th:text="${item.name}">Card title</h1>
+          <h2 class="card-title pb-4 pl-1" th:text="|${item.price}.00&#8372;|">100.00&#8372;</h2>
+          
+          
+          <form action='/cart' th:action="@{/cart}" th:object="${cartItem}" method='POST' enctype="utf8">
+            <input type='hidden' th:value="${item.goodId}" th:name="itemId" th:id="itemId"/>
+            <!--<fieldset id='colorId' class="form-group d-inline-block">
+              <legend class="col-form-label pb-1"><h6 class="text-muted mb-0">COLOR</h6></legend>
+              <div class="form-check form-check-inline">
+                <input class="d-none" type="radio" name="colorRadios" id="gridRadios1" value="color1">
+                <label class="form-check-label btn btn-circle bg-darkorange" for="gridRadios1"><span class=''><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="checked icon"/></span></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="d-none" type="radio" name="colorRadios" id="gridRadios2" value="color2">
+                <label class="form-check-label btn btn-circle bg-darkturquoise" for="gridRadios2"><span class=''><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="checked icon"/></span></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="d-none" type="radio" name="colorRadios" id="gridRadios3" value="color3">
+                <label class="form-check-label btn btn-circle bg-black" for="gridRadios3"><span class=''><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="checked icon"/></span></label>
+              </div>
+            </fieldset>
+            <fieldset id='sizeId' class="form-group d-inline-block pl-4">
+              <legend class="col-form-label pb-1"><h6 class="text-muted mb-0">SIZE</h6></legend>
+              <div class="form-check form-check-inline">
+                <input class="d-none" type="radio" name="sizeRadios" id="sizeRadios1" value="size1">
+                <label class="form-check-label btn btn-rect" for="sizeRadios1"><span>S</span></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="d-none" type="radio" name="sizeRadios" id="sizeRadios2" value="size2">
+                <label class="form-check-label btn btn-rect" for="sizeRadios2"><span>XL</span></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="d-none" type="radio" name="sizeRadios" id="sizeRadios3" value="size3">
+                <label class="form-check-label btn btn-rect" for="sizeRadios3"><span>XLLL</span></label>
+              </div>
+              </fieldset>-->
+              
+              
+            
+            <fieldset id='colorId' class="form-group d-inline-block">
+              <legend class="col-form-label pb-1"><h6 class="text-muted mb-0">COLOR</h6></legend>
+              <div class="form-check form-check-inline"  th:each="cl : ${item.colors}">
+                <input class="d-none" type="radio" th:field="*{color}" th:value="${cl}">
+                <label class="form-check-label btn btn-circle" th:attrappend="class=${' bg-' + cl}" th:for="${#ids.prev('color')}"><span class=''><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="checked icon"/></span></label>
+              </div>
+            </fieldset>
+            
+            <fieldset id='sizeId' class="form-group d-inline-block pl-4">
+              <legend class="col-form-label pb-1"><h6 class="text-muted mb-0">SIZE</h6></legend>
+              <div class="form-check form-check-inline" th:each="sz : ${item.sizeEnums}">
+                <input class="d-none" type="radio" th:field="*{sizeEnum}" th:value="${sz}">
+                <label class="form-check-label btn btn-rect" th:for="${#ids.prev('sizeEnum')}"><span th:text="${sz}">S</span></label>
+              </div>
+            </fieldset>
+              
+              
+              
+              <div class="form-group">
+                <label for="example-number-input" class=""><h6 class="text-muted mb-0">AMOUNT</h6></label>
+                <div class="row quantity">
+                  <input type="number" min='1' max='9' value='1' id="example-number-input"  th:value="1" th:name="amount" th:id="amount">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-4"> 
+                  <button type="submit" class="btn btn-block btn-to-cart">ADD TO CART</button>
+                </div>
+              </div>
+          </form>
+          
+          
+          
+          <p class="card-text pt-4" th:text="${item.description}">>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <small class="text-muted" th:text="${item.composition}">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script>
+       jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
+    jQuery('.quantity').each(function() {
+      var spinner = jQuery(this),
+        input = spinner.find('input[type="number"]'),
+        btnUp = spinner.find('.quantity-up'),
+        btnDown = spinner.find('.quantity-down'),
+        min = input.attr('min'),
+        max = input.attr('max');
+
+      btnUp.click(function() {
+        var oldValue = parseFloat(input.val());
+        if (oldValue >= max) {
+          var newVal = oldValue;
+        } else {
+          var newVal = oldValue + 1;
+        }
+        spinner.find("input").val(newVal);
+        spinner.find("input").trigger("change");
+      });
+
+      btnDown.click(function() {
+        var oldValue = parseFloat(input.val());
+        if (oldValue <= min) {
+          var newVal = oldValue;
+        } else {
+          var newVal = oldValue - 1;
+        }
+        spinner.find("input").val(newVal);
+        spinner.find("input").trigger("change");
+      });
+
+    });
+    </script>
+ </body>
+</html>

@@ -3,6 +3,7 @@ package com.tytarenko.estiloshop.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -25,9 +26,9 @@ public class Good {
     @NotNull
     private long price;
 
+    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private SizeEnum size;
+    private Collection<SizeEnum> sizeEnums;
 
     @NotNull
     private String composition;
@@ -35,31 +36,50 @@ public class Good {
     @Lob
     private byte[] image;
 
-    @OneToMany(mappedBy = "good", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
+    private List<ColorEnum> colors;
+
+    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
     private List<CartItem> cartItem;
 
     public Good(){
     }
 
-    public Good(@NotNull @Size(min = 4, max = 25) String name,
+    public Good(long id, @NotNull @Size(min = 4, max = 25) String name,
                 @NotNull @Size(min = 25, max = 500) String description,
-                @NotNull long price, @NotNull SizeEnum size,
-                @NotNull String composition) {
+                @NotNull long price, @NotNull Collection<SizeEnum> size,
+                @NotNull String composition,
+                @NotNull List<ColorEnum> colors) {
+        this.goodId = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.size = size;
+        this.sizeEnums = size;
         this.composition = composition;
+        this.colors = colors;
     }
 
     public Good(@NotNull @Size(min = 4, max = 25) String name,
                 @NotNull @Size(min = 25, max = 500) String description,
-                @NotNull long price, @NotNull SizeEnum size,
+                @NotNull long price, @NotNull Collection<SizeEnum> size,
+                @NotNull String composition,
+                @NotNull List<ColorEnum> colors) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.sizeEnums = size;
+        this.composition = composition;
+        this.colors = colors;
+    }
+
+    public Good(@NotNull @Size(min = 4, max = 25) String name,
+                @NotNull @Size(min = 25, max = 500) String description,
+                @NotNull long price, @NotNull List<SizeEnum> size,
                 @NotNull String composition, byte[] image) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.size = size;
+        this.sizeEnums = size;
         this.composition = composition;
         this.image = image;
     }
@@ -100,12 +120,12 @@ public class Good {
         this.price = price;
     }
 
-    public SizeEnum getSize() {
-        return size;
+    public Collection<SizeEnum> getSizeEnums() {
+        return sizeEnums;
     }
 
-    public void setSize(SizeEnum size) {
-        this.size = size;
+    public void setSizeEnums(Collection<SizeEnum> sizeEnums) {
+        this.sizeEnums = sizeEnums;
     }
 
     public String getComposition() {
@@ -132,6 +152,22 @@ public class Good {
         this.cartItem = cartItem;
     }
 
+    public List<ColorEnum> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<ColorEnum> colors) {
+        this.colors = colors;
+    }
+
+    public List<CartItem> getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(List<CartItem> cartItem) {
+        this.cartItem = cartItem;
+    }
+
     @Override
     public String toString() {
         return "Good{" +
@@ -139,7 +175,6 @@ public class Good {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", size=" + size +
                 ", composition='" + composition + '\'' +
                 '}';
     }

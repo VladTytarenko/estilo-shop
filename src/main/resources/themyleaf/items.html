@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC" rel="stylesheet">
+    <title>Collection</title>
+  </head>
+  <body>
+    <div class='fluid-container pt-5 pl-5 pr-5'>
+          <div class="d-flex justify-content-between pb-4">
+            <a class="col-sm-2 btn btn-outline-secondary" th:href="@{/items}">MAIN</a>
+            <a class="col-sm-2 btn btn-outline-secondary" th:href="@{/cart}">CART (<span th:text="${cartSize}">0</span>)</a>
+          </div>
+      <div id='main' class='row'>
+        <div class='col-sm-3 card-group mb-5' th:each="item : ${items}">
+          <div class="card text-center">
+            <a class='no-a' href='/collection/item/0' th:href="@{/items/{itemId}(itemId=${item.goodId})}">
+              <img class="card-img-top" src="/images/295x290.png" alt="Explore goods now">
+            </a>
+            <div class="card-body">
+              <h6 class="card-subtitle m-0 pb-1 pt-2 text-muted">AVAILABLE NOW</h6>
+              <a class='no-a' href='/collection/item/0' th:href="@{/items/{itemId}(itemId=${item.goodId})}">
+                <h4 class="card-title" th:text="${item.name}">Card title</h4>
+                <p class="card-text" th:text="${item.description}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </a>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted" th:text="${item.composition}">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+ </body>
+</html>

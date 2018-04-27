@@ -15,12 +15,12 @@ public interface GoodDao extends JpaRepository<Good, Long> {
 
     Good findGoodByGoodId(Long id);
 
-    @Query("SELECT g FROM Good g WHERE g.size = :size AND g.price BETWEEN :min AND :max ORDER BY g.price ASC")
+    @Query("SELECT g FROM Good g WHERE g.sizeEnums = :size AND g.price BETWEEN :min AND :max ORDER BY g.price ASC")
     List<Good> filterAsc(@Param("size") SizeEnum size,
                       @Param("min") long min,
                       @Param("max") long max);
 
-    @Query("SELECT g FROM Good g WHERE g.size = :size AND g.price BETWEEN :min AND :max ORDER BY g.price DESC")
+    @Query("SELECT g FROM Good g WHERE g.sizeEnums = :size AND g.price BETWEEN :min AND :max ORDER BY g.price DESC")
     List<Good> filterDesc(@Param("size") SizeEnum size,
                           @Param("min") long min,
                           @Param("max") long max);

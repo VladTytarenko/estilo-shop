@@ -1,10 +1,6 @@
 package com.tytarenko.estiloshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.awt.Color;
+import javax.persistence.*;
 
 @Entity
 public enum ColorEnum {
@@ -16,12 +12,17 @@ public enum ColorEnum {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-    private final int r;
-    private final int g;
-    private final int b;
+    private int r;
+    private int g;
+    private int b;
 
-	
-	private ColorEnum(final int r, final int g, final int b) {
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    private Good good;
+
+    ColorEnum() {
+    }
+
+    private ColorEnum(final int r, final int g, final int b) {
 		this.r = r;
         this.g = g;
         this.b = b;
@@ -45,5 +46,17 @@ public enum ColorEnum {
 
     public int getB() {
         return b;
+    }
+
+    public void setR(int r) {
+        this.r = r;
+    }
+
+    public void setG(int g) {
+        this.g = g;
+    }
+
+    public void setB(int b) {
+        this.b = b;
     }
 }
