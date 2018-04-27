@@ -8,4 +8,5 @@ public enum SizeEnum {
     XL,
     XXL,
     XXXL
+
 }

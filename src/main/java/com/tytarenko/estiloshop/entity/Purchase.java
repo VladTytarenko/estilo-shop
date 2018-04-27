@@ -27,8 +27,10 @@ public class Purchase {
 
     private Boolean isBuyed;
 
-    @ManyToMany(mappedBy = "good")
-    private List<Good> purchase;
+//    @ManyToMany(mappedBy = "good")
+//    private List<Good> purchase;
+    @ManyToMany(mappedBy = "cartItem")
+    private List<CartItem> purchase;
 
     public Purchase() {
     }
@@ -91,11 +93,11 @@ public class Purchase {
         isBuyed = buyed;
     }
 
-    public List<Good> getPurchase() {
+    public List<CartItem> getPurchase() {
         return purchase;
     }
 
-    public void setPurchase(List<Good> purchase) {
+    public void setPurchase(List<CartItem> purchase) {
         this.purchase = purchase;
     }
 

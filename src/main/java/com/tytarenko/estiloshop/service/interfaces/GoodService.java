@@ -12,7 +12,6 @@ public interface GoodService {
     void addGood(Good good);
     void updateGood(Good good);
     void deleteGood(Long id);
-    void addToPurchase(long goodId, long purchaseId);
     Good getGoodById(long id);
     List<Good> getAll();
     List<Good> getByFilterAsc(SizeEnum sizeEnum, long min, long max);

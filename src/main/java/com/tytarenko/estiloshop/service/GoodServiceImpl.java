@@ -32,11 +32,6 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public void addToPurchase(long goodId, long purchaseId) {
-        goodDao.addToPurchase(goodId, purchaseId);
-    }
-
-    @Override
     public Good getGoodById(long id) {
         return goodDao.findGoodByGoodId(id);
     }

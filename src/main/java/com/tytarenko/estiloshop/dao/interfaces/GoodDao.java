@@ -11,11 +11,6 @@ import java.util.List;
 
 public interface GoodDao extends JpaRepository<Good, Long> {
 
-    //List<Good> findGoodsBySizeAndPrice(SizeEnum sizeEnum, long price);
-    //List<Good> findGoodsBySizeAndPriceBetween(List<SizeEnum> size, long priceMin, long priceMax);
-
-    //List<Good> findGoodsByPriceBetweenAndDe
-
     List<Good> findAll();
 
     Good findGoodByGoodId(Long id);
@@ -36,8 +31,8 @@ public interface GoodDao extends JpaRepository<Good, Long> {
     @Query("SELECT MAX(g.price) FROM Good g")
     long getMaxPrice();
 
-    @Query(value = "INSERT INTO purchase_join_table (good_id, purchase_id) VALUES (:goodId, :purchaseId)",
-           nativeQuery = true)
-    void addToPurchase(@Param("goodId") long goodId,
-                       @Param("purchaseId") long purchaseId);
+//    @Query(value = "INSERT INTO purchase_join_table (good_id, purchase_id) VALUES (:goodId, :purchaseId)",
+//            nativeQuery = true)
+//    void addToPurchase(@Param("goodId") long goodId,
+//                       @Param("purchaseId") long purchaseId);
 }

@@ -3,7 +3,6 @@ package com.tytarenko.estiloshop.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Currency;
 import java.util.List;
 
 
@@ -36,14 +35,8 @@ public class Good {
     @Lob
     private byte[] image;
 
-    @ManyToMany
-    @JoinTable(name = "purchase_join_table",
-               joinColumns = @JoinColumn(name = "good_id"),
-               inverseJoinColumns = @JoinColumn(name = "purchase_id"))
-    private List<Purchase> good;
-
-//    @ManyToMany(mappedBy = "goods")
-//    private List<Purchase> purchaseList;
+    @OneToMany(mappedBy = "good", fetch = FetchType.EAGER)
+    private List<CartItem> cartItem;
 
     public Good(){
     }
@@ -73,6 +66,10 @@ public class Good {
 
     public long getGoodId() {
         return goodId;
+    }
+
+    public void setGoodId(Long goodId) {
+        this.goodId = goodId;
     }
 
     public void setGoodId(long goodId) {
@@ -127,12 +124,12 @@ public class Good {
         this.image = image;
     }
 
-    public List<Purchase> getPurchaseList() {
-        return good;
+    public List<CartItem> getCartItems() {
+        return cartItem;
     }
 
-    public void setPurchaseList(List<Purchase> good) {
-        this.good = good;
+    public void setCartItems(List<CartItem> cartItem) {
+        this.cartItem = cartItem;
     }
 
     @Override
